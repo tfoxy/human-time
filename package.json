@@ -1,0 +1,32 @@
+{
+  "name": "custom-human-time",
+  "version": "1.0.0",
+  "description": "Prints milliseconds time for human reading. Very customizable",
+  "main": "human-time.js",
+  "scripts": {
+    "test": "mocha test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tfoxy/human-time"
+  },
+  "bugs": {
+    "url": "https://github.com/tfoxy/human-time/issues"
+  },
+  "keywords": [
+    "human",
+    "time",
+    "milliseconds",
+    "seconds",
+    "ago",
+    "custom",
+    "customizable",
+    "config",
+    "configurable"
+  ],
+  "devDependencies": {
+    "mocha": "*"
+  },
+  "author": "Tomás Fox",
+  "license": "MIT"
+}
