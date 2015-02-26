@@ -1,6 +1,6 @@
 {
   "name": "custom-human-time",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Prints milliseconds time for human reading. Very customizable",
   "main": "human-time.js",
   "scripts": {
