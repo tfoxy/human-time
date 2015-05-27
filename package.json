@@ -25,7 +25,7 @@
     "configurable"
   ],
   "devDependencies": {
-    "mocha": "*"
+    "chai": "*"
   },
   "author": "Tomás Fox",
   "license": "MIT"
