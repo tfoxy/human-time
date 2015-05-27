@@ -1,7 +1,7 @@
 var expect = require('chai').expect;
 
 var HumanTime = require('./human-time.js');
-var humanTime = new HumanTime;
+var humanTime = new HumanTime();
 
 
 describe('Human time', function() {
@@ -45,7 +45,7 @@ describe('Human time', function() {
   });
   
   describe('using options', function() {
-  
+
     it('prints 1.23 seconds if time is 1234 and digits is 2', function() {
       var humanTime = new HumanTime({digits: 2});
       expect(humanTime.print(1234)).to.equal('1.23 seconds');
@@ -55,7 +55,7 @@ describe('Human time', function() {
       var humanTime = new HumanTime({digits: 2});
       expect(humanTime.print(1000)).to.equal('1 second');
     });
-  
+
     it('prints 54.3 seconds if time is 54321 and precision is 3', function() {
       var precisionRound = function(num, n) {
         return +num.toPrecision(n);
@@ -63,7 +63,7 @@ describe('Human time', function() {
       var humanTime = new HumanTime({digits: 3, round: precisionRound});
       expect(humanTime.print(54321)).to.equal('54.3 seconds');
     });
-  
+
     it('prints 1 second if time is 1999 and truncate is used', function() {
       var truncateRound = function(num) {
         return num >> 0;
@@ -71,9 +71,9 @@ describe('Human time', function() {
       var humanTime = new HumanTime({round: truncateRound});
       expect(humanTime.print(1999)).to.equal('1 second');
     });
-  
+
     it('prints 1.2 seconds if time is 1234 and digits was set to 1 after constructor', function() {
-      var humanTime = new HumanTime;
+      var humanTime = new HumanTime();
       humanTime.digits = 1;
       expect(humanTime.print(1234)).to.equal('1.2 seconds');
     });

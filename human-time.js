@@ -5,7 +5,11 @@
  * Copyright 2015 Tomás Fox
  * Released under the MIT license
  */
+
+
 (function() {
+  "use strict";
+
   var names = {
     'zero': 0,
     'millisecond': ' millisecond`',
@@ -17,6 +21,7 @@
     'month': ' month`',
     'year': ' year`'
   };
+
   var plurals = {
     'millisecond': 's',
     'second': 's',
@@ -43,30 +48,38 @@
     new T('month', 30 * 24 * 60 * 60 * 1000),
     new T('year', 365 * 24 * 60 * 60 * 1000)
   ];
-  
+
+
   var fixedRound = function(num, n) {
     return +num.toFixed(n);
   };
-  
+
+
+  var makeCopyOf = function(obj) {
+    return JSON.parse(JSON.stringify(obj));
+  };
+
+
+  var mergeObjects = function(baseObj, addObj) {
+    var mergeObj = makeCopyOf(baseObj);
+
+    if (typeof addObj === 'object') {
+      for (var key in addObj) {
+        if (Object.prototype.hasOwnProperty.call(addObj, key))
+          mergeObj[key] = addObj[key];
+      }
+    }
+
+    return mergeObj;
+  };
+
+
   var HumanTime = function(options) {
-    if (typeof options === 'undefined')
-      options = {};
-    
-    // Make copy of names
-    this.names = JSON.parse(JSON.stringify(names));
-    if (typeof options.names === 'object') {
-      for (var key in options.names) {
-        this.names[key] = options.names[key];
-      }
-    }
-    
-    // Make copy of plurals
-    this.plurals = JSON.parse(JSON.stringify(plurals));
-    if (typeof options.plurals === 'object') {
-      for (var key in options.plurals) {
-        this.plurals[key] = options.plurals[key];
-      }
-    }
+    options = options || {};
+
+    this.names = mergeObjects(names, options.names);
+
+    this.plurals = mergeObjects(plurals, options.plurals);
     
     if (typeof options.round === 'function') {
       this.round = options.round;
@@ -77,7 +90,8 @@
     
     this.digits = options.digits;
   };
-  
+
+
   HumanTime.prototype.print = function(time) {
     if (time < 1) {
       return names.zero.toString();
@@ -92,7 +106,8 @@
     
     return this._print(time, times[times.length - 1]);
   };
-  
+
+
   HumanTime.prototype._print = function(time, t) {
     var printedTime = this.round(time / t.time, this.digits);
     var name = this.names[t.name];
@@ -100,7 +115,8 @@
     
     return printedTime + name.replace('`', plural);
   };
-  
+
+
   if (typeof module !== 'undefined' && module.exports) {
     module.exports = HumanTime;
   }
@@ -110,4 +126,5 @@
   else {
     return HumanTime;
   }
+
 })();
