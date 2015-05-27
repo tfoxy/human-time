@@ -4,7 +4,7 @@
   "description": "Prints milliseconds time for human reading. Very customizable",
   "main": "human-time.js",
   "scripts": {
-    "test": "mocha test.js"
+    "test": "mocha tests/test.js"
   },
   "repository": {
     "type": "git",

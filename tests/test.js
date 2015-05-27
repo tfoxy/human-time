@@ -1,6 +1,6 @@
 var expect = require('chai').expect;
 
-var HumanTime = require('./human-time.js');
+var HumanTime = require('./../human-time.js');
 var humanTime = new HumanTime();
 
 
