@@ -7,8 +7,21 @@
  */
 
 
-(function() {
-  "use strict";
+(function (root, factory) {
+  if (typeof define === 'function' && define.amd) {
+    // AMD. Register as an anonymous module.
+    define([], factory);
+  } else if (typeof exports === 'object') {
+    // Node. Does not work with strict CommonJS, but
+    // only CommonJS-like environments that support module.exports,
+    // like Node.
+    module.exports = factory();
+  } else {
+    // Browser globals (root is window)
+    root.returnExports = factory();
+  }
+}(this, function () {
+  'use strict';
 
   var names = {
     'zero': 0,
@@ -32,12 +45,12 @@
     'month': 's',
     'year': 's'
   };
-  
+
   var T = function(name, time) {
     this.name = name;
     this.time = time;
   };
-  
+
   var times = [
     new T('millisecond', 1),
     new T('second', 1000),
@@ -80,14 +93,14 @@
     this.names = mergeObjects(names, options.names);
 
     this.plurals = mergeObjects(plurals, options.plurals);
-    
+
     if (typeof options.round === 'function') {
       this.round = options.round;
     }
     else {
       this.round = fixedRound;
     }
-    
+
     this.digits = options.digits;
   };
 
@@ -96,14 +109,14 @@
     if (time < 1) {
       return names.zero.toString();
     }
-    
+
     for (var i = 0; i < times.length; ++i) {
       var t = times[i];
       if (time < t.time) {
         return this._print(time, times[i-1]);
       }
     }
-    
+
     return this._print(time, times[times.length - 1]);
   };
 
@@ -112,19 +125,10 @@
     var printedTime = this.round(time / t.time, this.digits);
     var name = this.names[t.name];
     var plural = printedTime === 1? '' : this.plurals[t.name];
-    
+
     return printedTime + name.replace('`', plural);
   };
 
 
-  if (typeof module !== 'undefined' && module.exports) {
-    module.exports = HumanTime;
-  }
-  else if (typeof window !== 'undefined') {
-    window.HumanTime = HumanTime;
-  }
-  else {
-    return HumanTime;
-  }
-
-})();
+  return HumanTime;
+}));
