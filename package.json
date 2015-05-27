@@ -2,7 +2,7 @@
   "name": "custom-human-time",
   "version": "1.0.1",
   "description": "Prints milliseconds time for human reading. Very customizable",
-  "main": "human-time.js",
+  "main": "./index",
   "scripts": {
     "test": "mocha tests/test.js"
   },
